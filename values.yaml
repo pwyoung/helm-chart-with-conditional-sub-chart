@@ -1,0 +1,15 @@
+postgresql:
+  enabled: false  # Can be overridden to true to install the subchart
+  # Default subchart values if installed
+  auth:
+    postgresPassword: ""
+    database: myapp
+#
+# When postgresql.enabled is false, these values are used instead
+externalDatabase:
+  host: ""
+  port: 5432
+  database: myapp
+  user: postgres
+  password: ""
+

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-db-config
+data:
+  DB_HOST: {{ if .Values.postgresql.enabled }}{{ .Release.Name }}-postgresql{{ else }}{{ required "externalDatabase.host is required when postgresql.enabled is false" .Values.exter
+nalDatabase.host }}{{ end }}
+  DB_PORT: {{ if .Values.postgresql.enabled }}"5432"{{ else }}{{ .Values.externalDatabase.port | quote }}{{ end }}
+  DB_NAME: {{ if .Values.postgresql.enabled }}{{ .Values.postgresql.auth.database }}{{ else }}{{ .Values.externalDatabase.database }}{{ end }}
+  DB_USER: {{ if .Values.postgresql.enabled }}"postgres"{{ else }}{{ .Values.externalDatabase.user }}{{ end }}
+

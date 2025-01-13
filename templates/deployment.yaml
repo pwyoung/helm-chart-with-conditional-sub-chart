@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-app
+  template:
+    metadata:
+      labels:
+	app: {{ .Release.Name }}-app
+    spec:
+      containers:
+      - name: app
+	image: myapp:1.0.0
+	envFrom:
+	- configMapRef:
+            name: {{ .Release.Name }}-db-config
+	- secretRef:
+            name: {{ .Release.Name }}-db-secret
